@@ -97,13 +97,13 @@ message(STATUS "MDFLibrary Target Includes: " "${PH1}")
 #     PUBLIC_HEADER DESTINATION include/mdflibrary)
 # endif()
 
-include(GNUInstallDirs)
-# mdflibrary目标的安装规则
-install(
-    TARGETS mdflibrary
-    EXPORT MdfLibraryTargets
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/mdflibrary
-)
+# include(GNUInstallDirs)
+# # mdflibrary目标的安装规则
+# install(
+#     TARGETS mdflibrary
+#     EXPORT MdfLibraryTargets
+#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+#     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/mdflibrary
+# )
