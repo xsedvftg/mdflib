@@ -101,7 +101,7 @@ endif()
 # ##############################################################################
 # https://cmake.org/cmake/help/latest/manual/cmake-packages.7.html#creating-a-package-configuration-file
 # 安装库和头文件
-install(TARGETS mdflib
+install(TARGETS mdflibrary
         EXPORT MdfLibTargets
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
