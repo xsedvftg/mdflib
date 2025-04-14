@@ -194,7 +194,7 @@ set(MDF_PUBLIC_HEADERS
     ../include/mdf/hoadmindata.h
     ../include/mdf/hocompumethod.h
     ../include/mdf/hocompuscale.h
-    ../include/mdf/hoenumerate.h
+    ../include/mdf/hoenumerates.h
     ../include/mdf/hointerval.h
     ../include/mdf/honamedetails.h
     ../include/mdf/hophysicaldimension.h
