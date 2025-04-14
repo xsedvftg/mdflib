@@ -100,27 +100,29 @@ endif()
 # Packaging
 # ##############################################################################
 # https://cmake.org/cmake/help/latest/manual/cmake-packages.7.html#creating-a-package-configuration-file
-include(CMakePackageConfigHelpers)
-write_basic_package_version_file(
-  "${CMAKE_CURRENT_BINARY_DIR}/mdflib/mdflibConfigVersion.cmake"
-  VERSION ${Upstream_VERSION}
-  COMPATIBILITY AnyNewerVersion)
+# 安装库和头文件
+install(TARGETS mdflib
+        EXPORT MdfLibTargets
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
 
-export(
-  EXPORT MdfLibTargets
-  FILE "${CMAKE_CURRENT_BINARY_DIR}/mdflib/mdflibTargets.cmake"
-  NAMESPACE Upstream::)
-configure_file(cmake/MdfLibConfig.cmake
-               "${CMAKE_CURRENT_BINARY_DIR}/mdflib/MdfLibConfig.cmake" COPYONLY)
+install(FILES ${HEADER_FILES} DESTINATION include)  # 替换HEADER_FILES为实际头文件列表
 
-set(ConfigPackageLocation lib/cmake/mdflib)
-install(
-  EXPORT MdfLibTargets
-  FILE MdfLibTargets.cmake
-  NAMESPACE Upstream::
-  DESTINATION ${ConfigPackageLocation})
-install(
-  FILES cmake/MdfLibConfig.cmake
-        "${CMAKE_CURRENT_BINARY_DIR}/mdflib/mdflibConfigVersion.cmake"
-  DESTINATION ${ConfigPackageLocation}
-  COMPONENT Devel)
+# 安装导出目标文件，并设置命名空间
+install(EXPORT MdfLibTargets
+        FILE mdflib-targets.cmake
+        NAMESPACE mdflib::  # 命名空间更改为mdflib::
+        DESTINATION share/mdflib)
+
+# 生成配置文件（处理依赖并包含目标）
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/mdflib-config.cmake"
+"include(CMakeFindDependencyMacro)\n"
+# 若有依赖项，添加find_dependency命令，例如：
+# "find_dependency(fmt CONFIG REQUIRED)\n"
+"include(\"\${CMAKE_CURRENT_LIST_DIR}/mdflib-targets.cmake\")\n"
+)
+
+# 安装生成的配置文件
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mdflib-config.cmake"
+        DESTINATION share/mdflib)
