@@ -101,28 +101,25 @@ endif()
 # ##############################################################################
 # https://cmake.org/cmake/help/latest/manual/cmake-packages.7.html#creating-a-package-configuration-file
 # 安装库和头文件
-# install(TARGETS mdflibrary
-#         EXPORT MdfLibTargets
-#         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-#         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-#         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
+install(TARGETS mdflibrary mdf  # 添加mdf目标
+        EXPORT MdfLibTargets
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
 
-# install(FILES ${HEADER_FILES} DESTINATION include)  # 替换HEADER_FILES为实际头文件列表
+install(FILES ${MDFLIBRARY_PUBLIC_HEADERS} DESTINATION include)  # 头文件安装保持原样
 
-# # 安装导出目标文件，并设置命名空间
-# install(EXPORT MdfLibTargets
-#         FILE mdflib-targets.cmake
-#         NAMESPACE mdflib::  # 命名空间更改为mdflib::
-#         DESTINATION share/mdflib)
+# 导出目标文件（自动包含两个目标）
+install(EXPORT MdfLibTargets
+        FILE mdflib-targets.cmake
+        NAMESPACE mdflib::  # 命名空间保持mdflib::
+        DESTINATION share/mdflib)
 
-# # 生成配置文件（处理依赖并包含目标）
-# file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/mdflib-config.cmake"
-# "include(CMakeFindDependencyMacro)\n"
-# # 若有依赖项，添加find_dependency命令，例如：
-# # "find_dependency(fmt CONFIG REQUIRED)\n"
-# "include(\"\${CMAKE_CURRENT_LIST_DIR}/mdflib-targets.cmake\")\n"
-# )
+# 配置文件无需修改（自动包含所有导出目标）
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/mdflib-config.cmake"
+"include(CMakeFindDependencyMacro)\n"
+"include(\"\${CMAKE_CURRENT_LIST_DIR}/mdflib-targets.cmake\")\n"
+)
 
-# # 安装生成的配置文件
-# install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mdflib-config.cmake"
-#         DESTINATION share/mdflib)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mdflib-config.cmake"
+        DESTINATION share/mdflib)
