@@ -79,20 +79,31 @@ set_target_properties(mdflibrary PROPERTIES PUBLIC_HEADER
 get_target_property(PH1 mdflibrary PUBLIC_HEADER)
 message(STATUS "MDFLibrary Target Includes: " "${PH1}")
 
-if(WIN32)
-  install(
+# if(WIN32)
+#   install(
+#     TARGETS mdflibrary
+#     EXPORT MdfLibraryTargets
+#     LIBRARY DESTINATION mdflibrary/lib
+#     ARCHIVE DESTINATION mdflibrary/lib
+#     RUNTIME DESTINATION mdflibrary/bin
+#     PUBLIC_HEADER DESTINATION mdflibrary/include/mdflibrary)
+# else()
+#   install(
+#     TARGETS mdflibrary
+#     EXPORT MdfLibraryTargets
+#     LIBRARY DESTINATION lib
+#     ARCHIVE DESTINATION lib
+#     RUNTIME DESTINATION bin
+#     PUBLIC_HEADER DESTINATION include/mdflibrary)
+# endif()
+
+include(GNUInstallDirs)
+# mdflibrary目标的安装规则
+install(
     TARGETS mdflibrary
     EXPORT MdfLibraryTargets
-    LIBRARY DESTINATION mdflibrary/lib
-    ARCHIVE DESTINATION mdflibrary/lib
-    RUNTIME DESTINATION mdflibrary/bin
-    PUBLIC_HEADER DESTINATION mdflibrary/include/mdflibrary)
-else()
-  install(
-    TARGETS mdflibrary
-    EXPORT MdfLibraryTargets
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
-    RUNTIME DESTINATION bin
-    PUBLIC_HEADER DESTINATION include/mdflibrary)
-endif()
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/mdflibrary
+)
