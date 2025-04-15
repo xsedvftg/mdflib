@@ -78,6 +78,7 @@ set_target_properties(mdflibrary PROPERTIES PUBLIC_HEADER
                                             "${MDFLIBRARY_PUBLIC_HEADERS}")
 get_target_property(PH1 mdflibrary PUBLIC_HEADER)
 message(STATUS "MDFLibrary Target Includes: " "${PH1}")
+install(DIRECTORY ../include/mdflibrary DESTINATION include)  # 头文件安装保持原样
 
 # if(WIN32)
 #   install(

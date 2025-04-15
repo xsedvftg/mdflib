@@ -108,7 +108,6 @@ install(TARGETS mdflibrary mdf  # 添加mdf目标
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
 
-install(FILES ${MDFLIBRARY_PUBLIC_HEADERS} DESTINATION include)  # 头文件安装保持原样
 
 # 导出目标文件（自动包含两个目标）
 install(EXPORT MdfLibTargets
