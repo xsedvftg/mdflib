@@ -245,6 +245,7 @@ set(MDF_PUBLIC_HEADERS
 set_target_properties(mdf PROPERTIES PUBLIC_HEADER "${MDF_PUBLIC_HEADERS}")
 get_target_property(PH1 mdf PUBLIC_HEADER)
 message(STATUS "MDF Target Includes: " "${PH1}")
+install(DIRECTORY ../include/mdf DESTINATION include)  # 头文件安装保持原样
 
 # if(WIN32)
 #   install(
